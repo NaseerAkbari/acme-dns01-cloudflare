@@ -5,7 +5,7 @@ set -e
 echo "🔐 Let's set up automatic TLS with Cloudflare + acme.sh"
 
 # Ask for user input
-read -rp "🌐 Enter your full domain name (e.g., home.akbari.cloud): " DOMAIN
+read -rp "🌐 Enter your full domain name (e.g., naseer.akbari.cloud): " DOMAIN
 read -rp "🔑 Enter your Cloudflare API Token: " CF_Token
 read -rp "🧾 Enter your Cloudflare Account ID: " CF_Account_ID
 read -rp "📧 Enter your email address for ZeroSSL/Let's Encrypt: " EMAIL
