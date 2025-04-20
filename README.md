@@ -8,7 +8,7 @@ Perfect for securing **internal services**, **self-hosted apps**, or **home labs
 
 ## 📌 Problem
 
-Issuing Let's Encrypt certificates for internal or local services (e.g., `nextcloud.example.com`) that aren't publicly accessible is normally tricky. Traditional HTTP-01 validation won't work behind NAT or firewalls.
+Issuing Let's Encrypt certificates for internal or local services (e.g., `subdomain.example.com`) that aren't publicly accessible is normally tricky. Traditional HTTP-01 validation won't work behind NAT or firewalls.
 
 ---
 
