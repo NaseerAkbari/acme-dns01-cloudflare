@@ -30,19 +30,29 @@ fi
 echo "📡 Issuing certificate for $DOMAIN using Cloudflare DNS..."
 ~/.acme.sh/acme.sh --issue --dns dns_cf -d "$DOMAIN" --dnssleep 180 --debug
 
-# Install directory
+# Install directories
 INSTALL_DIR="/root/certis"
-mkdir -p "$INSTALL_DIR"
+INSTALL_DIR2="/etc/ssl"
+mkdir -p "$INSTALL_DIR" "$INSTALL_DIR2/certs" "$INSTALL_DIR2/private"
 
-# Install the certificate
+# Install the certificate to /root/certis (backup / debug use)
 echo "📁 Installing certificate to $INSTALL_DIR..."
 ~/.acme.sh/acme.sh --install-cert -d "$DOMAIN" \
   --key-file "$INSTALL_DIR/${DOMAIN}.key" \
   --fullchain-file "$INSTALL_DIR/${DOMAIN}.crt" \
   --reloadcmd "echo '✅ Certificate for $DOMAIN installed. No reload needed.'"
 
+# Install the certificate to /etc/ssl (system usage)
+echo "🔐 Installing certificate to $INSTALL_DIR2..."
+~/.acme.sh/acme.sh --install-cert -d "$DOMAIN" \
+  --key-file "$INSTALL_DIR2/private/${DOMAIN}.key" \
+  --fullchain-file "$INSTALL_DIR2/certs/${DOMAIN}.crt" \
+  --reloadcmd "echo '✅ Certificate for $DOMAIN installed in $INSTALL_DIR2. No reload needed.'"
+
 echo "🎉 Done! Your certificate is now ready:"
-echo "  Key:       $INSTALL_DIR/${DOMAIN}.key"
-echo "  Fullchain: $INSTALL_DIR/${DOMAIN}.crt"
+echo "  Key (Backup):       $INSTALL_DIR/${DOMAIN}.key"
+echo "  Fullchain (Backup): $INSTALL_DIR/${DOMAIN}.crt"
+echo "  Key (System):       $INSTALL_DIR2/private/${DOMAIN}.key"
+echo "  Fullchain (System): $INSTALL_DIR2/certs/${DOMAIN}.crt"
 echo
 echo "🔁 Auto-renewal is already set up via cron."
